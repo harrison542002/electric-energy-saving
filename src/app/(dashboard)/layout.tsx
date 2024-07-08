@@ -1,4 +1,5 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import SideNav from "@/components/side-nav";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
@@ -11,6 +12,13 @@ export default async function RootLayout({
   if (!session) {
     redirect("/login");
   } else {
-    return <>{children}</>;
+    return (
+      <div className="grid grid-cols-9 min-h-screen">
+        <div className="col-span-2 h-full">
+          <SideNav />
+        </div>
+        <div className="col-span-7">{children}</div>
+      </div>
+    );
   }
 }
