@@ -2,8 +2,8 @@ import React from "react";
 
 type Props = {};
 
-const Page = (props: Props) => {
-  return <div>Page</div>;
+const Page = async () => {
+  return <div></div>;
 };
 
 export default Page;

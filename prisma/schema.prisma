@@ -7,57 +7,67 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  identity_number String       @id @unique
-  username        String       @db.VarChar(200)
-  password        String
-  name            String
-  current_hidp    String?
-  household       Household?   @relation(fields: [current_hidp], references: [hidp])
-  type            OccupantType @default(TENANT)
+model household {
+  hidp         String         @id
+  monthlyusage monthlyusage[]
+  user         user[]
+  rankreward   rankreward[]
 }
 
-model Household {
-  hidp           String         @id
-  monthly_usages MonthlyUsage[]
-
-  occupants User[]
-}
-
-model MonthlyUsage {
+model monthlyusage {
   id                Int       @id @default(autoincrement())
-  total_energy_bill Float     @default(0)
-  electric_kWh      Float     @default(0)
-  gas_kWh           Float     @default(0)
   household_id      String
   date              DateTime
-  household         Household @relation(fields: [household_id], references: [hidp])
-  Reward            Reward[]
+  electric_kWh      Float     @default(0)
+  gas_kWh           Float     @default(0)
+  total_energy_bill Float     @default(0)
+  household         household @relation(fields: [household_id], references: [hidp], map: "MonthlyUsage_household_id_fkey")
+  reward            reward[]
+
+  @@index([household_id], map: "MonthlyUsage_household_id_fkey")
 }
 
-model Reward {
-  id               Int          @id @default(autoincrement())
-  status           Status       @default(PENDING)
+model rankreward {
+  id           Int      @id @default(autoincrement())
+  granted_date DateTime
+  rankPlace    Int
+  hipd         String
+  total_saving Int?
+
+  household household @relation(fields: [hipd], references: [hidp])
+}
+
+model reward {
+  id               Int           @id @default(autoincrement())
+  status           reward_status @default(PENDING)
   expired_date     DateTime
   monthly_usage_id Int
   total_saving     Int
-  monthly_usage    MonthlyUsage @relation(fields: [monthly_usage_id], references: [id])
+  monthlyusage     monthlyusage  @relation(fields: [monthly_usage_id], references: [id], map: "Reward_monthly_usage_id_fkey")
+
+  @@index([monthly_usage_id], map: "Reward_monthly_usage_id_fkey")
 }
 
-model RankReward {
-  id           Int      @id @default(autoincrement())
-  user_id      String
-  granted_date DateTime
-  rankPlace    Int
+model user {
+  identity_number String     @id @unique(map: "User_identity_number_key")
+  username        String     @db.VarChar(200)
+  password        String
+  current_hidp    String?
+  type            user_type  @default(TENANT)
+  name            String
+  profile         String?    @db.Text
+  household       household? @relation(fields: [current_hidp], references: [hidp], map: "User_current_hidp_fkey")
+
+  @@index([current_hidp], map: "User_current_hidp_fkey")
 }
 
-enum Status {
+enum reward_status {
   PENDING
   EXPIRED
   CLAIMED
 }
 
-enum OccupantType {
+enum user_type {
   LANDLORD
   TENANT
 }

@@ -87,7 +87,11 @@ export function LoginForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="E.g. password123" {...field} />
+                <Input
+                  placeholder="E.g. password123"
+                  type="password"
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 Enter the password you have created in registration form

@@ -29,15 +29,24 @@ export const authOptions: NextAuthOptions = {
 
         if (user) {
           return {
+            id: user.identity_number,
             name: user.name,
             username: user.username,
-            id: user.identity_number,
           };
         }
         return null;
       },
     }),
   ],
+  callbacks: {
+    session: ({ session, token }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        id: token.sub,
+      },
+    }),
+  },
   session: {
     strategy: "jwt",
   },

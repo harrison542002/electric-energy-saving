@@ -124,7 +124,11 @@ export function RegisterForm() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="E.g. password123" {...field} />
+                  <Input
+                    placeholder="E.g. password123"
+                    type="password"
+                    {...field}
+                  />
                 </FormControl>
                 <FormDescription>
                   Password will be used for login
