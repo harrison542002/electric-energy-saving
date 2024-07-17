@@ -1,7 +1,6 @@
-import { monthly_usages_columns } from "@/app/(dashboard)/monthly-usage/columns";
+import { Reward } from "@/app/(dashboard)/reward/columns";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { DataTable } from "@/components/data-table";
-import MonthlyUsageList from "@/components/pages/monthly-usage-list";
+import RewardList from "@/components/pages/reward-list";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import React from "react";
@@ -16,15 +15,26 @@ const Page = async () => {
     select: {
       household: {
         select: {
-          monthlyusage: true,
+          monthlyusage: {
+            select: {
+              reward: true,
+            },
+          },
         },
       },
     },
   });
 
+  let rewards: Reward[] = [];
+  user?.household?.monthlyusage.forEach((monthly_usage) => {
+    if (monthly_usage.reward.length > 0) {
+      rewards = [...rewards, ...monthly_usage.reward];
+    }
+  });
+
   return (
     <div>
-      <MonthlyUsageList monthlyusage={user?.household?.monthlyusage as any} />
+      <RewardList rewards={rewards} />
     </div>
   );
 };

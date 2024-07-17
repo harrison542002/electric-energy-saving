@@ -30,4 +30,8 @@ export const sideNav = [
     title: "Leaderboard",
     link: "/leaderboard",
   },
+  {
+    title: "Events",
+    link: "/events",
+  },
 ];

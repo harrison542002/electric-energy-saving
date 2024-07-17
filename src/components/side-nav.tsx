@@ -2,16 +2,21 @@
 import { sideNav } from "@/constant/nav-groups";
 import Link from "next/link";
 import React from "react";
-import { AiOutlineHome } from "react-icons/ai";
-import { AiFillHome } from "react-icons/ai";
-import { RiBillLine } from "react-icons/ri";
-import { RiBillFill } from "react-icons/ri";
-import { AiOutlineDollar } from "react-icons/ai";
-import { AiFillDollarCircle } from "react-icons/ai";
-import { MdOutlineLeaderboard } from "react-icons/md";
-import { MdLeaderboard } from "react-icons/md";
+import {
+  AiFillDollarCircle,
+  AiOutlineHome,
+  AiFillHome,
+  AiOutlineDollar,
+} from "react-icons/ai";
+import { MdOutlineLeaderboard , MdLeaderboard } from "react-icons/md";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import {
+  RiCalendarEventLine,
+  RiCalendarEventFill,
+  RiBillLine,
+  RiBillFill,
+} from "react-icons/ri";
 
 type Props = {};
 
@@ -33,6 +38,10 @@ function SideNav({}: Props) {
     {
       bold: <MdLeaderboard />,
       normal: <MdOutlineLeaderboard />,
+    },
+    {
+      normal: <RiCalendarEventLine />,
+      bold: <RiCalendarEventFill />,
     },
   ];
   return (

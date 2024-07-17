@@ -5,7 +5,8 @@ import KPICards from "@/components/kpi-cards";
 import MonthlyUsageOverview from "@/components/monthly-usage-overview";
 import RankOverview from "@/components/rank-overview";
 import prisma from "@/lib/prisma";
-import { createRanking, getKpiResults } from "@/services/results-services";
+import { current_month_rank } from "@/services/rank-services";
+import { getKpiResults } from "@/services/results-services";
 import { getServerSession } from "next-auth";
 import React from "react";
 
@@ -17,23 +18,16 @@ const Page = async () => {
     take: 8,
   });
 
-  const [
-    rank,
-    average_saving,
-    previous_month_saving,
-    total_cost,
-    rewards,
-    rankPlace,
-  ] = await getKpiResults(user_id);
+  const [rank, average_saving, previous_month_saving, total_cost, rewards] =
+    await getKpiResults(user_id);
 
+  const rankPlace = await current_month_rank();
   const date = new Date("2024-08-01");
   date.setMonth(date.getMonth() - 1);
   date.setDate(1);
 
   const current_date = new Date("2024-08-01");
   current_date.setDate(1);
-
-  await createRanking(date, current_date);
 
   return (
     <div className="p-4 flex flex-col gap-y-2">

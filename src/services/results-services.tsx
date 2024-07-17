@@ -97,44 +97,11 @@ export const getKpiResults = async (id: string) => {
       })
     : 0;
 
-  const rankPlace = await prisma.rankreward.findMany({
-    where: {
-      granted_date: {
-        lt: current_date,
-        gt: date,
-      },
-    },
-    select: {
-      household: {
-        select: {
-          user: {
-            select: {
-              name: true,
-              profile: true,
-            },
-          },
-        },
-      },
-      total_saving: true,
-      rankPlace: true,
-    },
-    orderBy: {
-      rankPlace: "asc",
-    },
-  });
-
   const average_saving = average_total_saving._avg.total_saving?.toFixed(2);
   const previous_month_saving = saving_pervious_month.toFixed(2);
   const total_cost = total_spending_energy._sum.total_energy_bill?.toFixed(2);
 
-  return [
-    rank,
-    average_saving,
-    previous_month_saving,
-    total_cost,
-    rewards,
-    rankPlace,
-  ];
+  return [rank, average_saving, previous_month_saving, total_cost, rewards];
 };
 
 export const toRandomlyPutImages = async () => {
