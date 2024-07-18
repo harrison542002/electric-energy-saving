@@ -35,5 +35,5 @@ jobs:
           path: ./*
           remote_path: /var/www/my-app/
           remote_host: 18.142.255.14
-          remote_user: root
+          remote_user: ubuntu
           remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
