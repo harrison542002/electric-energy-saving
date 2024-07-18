@@ -68,7 +68,7 @@ export const rank_place_columns: ColumnDef<RankPlace>[] = [
                 width={30}
                 height={30}
                 alt={row.original.household.user[2].name}
-                className="rounded-full -ml-2"
+                className="rounded-full -ml-2 "
               />
             </div>
             <p>{row.original.household.user[0].name} and friends house</p>
