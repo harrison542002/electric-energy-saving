@@ -1,5 +1,6 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import SavingCharts from "@/components/charts/saving-chart";
+import DashboardNav from "@/components/dashboard-ui";
 import Heading from "@/components/heading";
 import KPICards from "@/components/kpi-cards";
 import MonthlyUsageOverview from "@/components/monthly-usage-overview";
@@ -30,24 +31,27 @@ const Page = async () => {
   current_date.setDate(1);
 
   return (
-    <div className="p-4 flex flex-col gap-y-2">
-      <KPICards
-        kpiResults={[rank, average_saving, previous_month_saving, total_cost]}
-      />
+    <>
+      <DashboardNav session={session} title="Overview" />
+      <div className="p-4 flex flex-col gap-y-2">
+        <KPICards
+          kpiResults={[rank, average_saving, previous_month_saving, total_cost]}
+        />
 
-      <div className="grid grid-cols-2 gap-2">
-        <MonthlyUsageOverview monthly_usage={monthly_usage} />
-        <div>
-          <div className="h-[250px]">
-            <Heading className="text-center">
-              Time serie of saving bill for current household
-            </Heading>
-            <SavingCharts rewards={rewards as any} />
+        <div className="grid grid-cols-2 gap-2">
+          <MonthlyUsageOverview monthly_usage={monthly_usage} />
+          <div>
+            <div className="h-[250px]">
+              <Heading className="text-center">
+                Time serie of saving bill for current household
+              </Heading>
+              <SavingCharts rewards={rewards as any} />
+            </div>
+            <RankOverview rankReward={rankPlace as any} />
           </div>
-          <RankOverview rankReward={rankPlace as any} />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

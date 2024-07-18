@@ -13,7 +13,7 @@ const Nav = () => {
         <Image src="/greenie.png" alt="Greenie" width={40} height={40} />
         <ul className="flex gap-4">
           {publicNav.map((item) => (
-            <li>
+            <li key={item.title}>
               <Link
                 href={item.link}
                 className={`${

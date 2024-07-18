@@ -5,10 +5,10 @@ export const current_month_rank = async () => {
   const date = new Date();
   date.setMonth(date.getMonth() - 1);
   date.setDate(1);
-
-  const current_date = new Date();
-  current_date.setDate(1);
-  current_date.setHours(0, 0, 0);
+  let current_date = new Date();
+  current_date = new Date(
+    `${current_date.getFullYear()}-${current_date.getMonth() + 1}-01 00:00:00`
+  );
 
   const rankPlace = await prisma.rankreward.findMany({
     where: {

@@ -61,6 +61,14 @@ model user {
   @@index([current_hidp], map: "User_current_hidp_fkey")
 }
 
+model event {
+  id    Int      @id @default(autoincrement())
+  title String
+  desc  String   @db.LongText
+  time  DateTime
+  img   String
+}
+
 enum reward_status {
   PENDING
   EXPIRED

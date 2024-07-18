@@ -1,5 +1,6 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import DashboardNav from "@/components/dashboard-ui";
 import SideNav from "@/components/side-nav";
+import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 

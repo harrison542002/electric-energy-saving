@@ -1,5 +1,6 @@
 import { errorHandler } from "@/lib/errorHandler";
 import prisma from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
@@ -8,7 +9,7 @@ export async function POST(req: Request) {
       where: { identity_number },
     });
     if (checkDuplication) {
-      return Response.json(
+      return NextResponse.json(
         { message: "You already have an account, please login!" },
         {
           status: 400,
@@ -19,7 +20,7 @@ export async function POST(req: Request) {
     const user = await prisma.user.create({
       data: { username, password, identity_number, name },
     });
-    return Response.json({
+    return NextResponse.json({
       message: `Welcome ${user.name}, you have registered successfully!`,
     });
   } catch (error) {

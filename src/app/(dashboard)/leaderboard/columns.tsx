@@ -107,7 +107,7 @@ export const rank_place_columns: ColumnDef<RankPlace>[] = [
                 className="rounded-full "
               />
             </div>
-            <p>{row.original.household.user[0].name}'s house </p>
+            <p>{row.original.household.user[0].name}&apos;s house </p>
           </div>
         ) : (
           <>No users found</>

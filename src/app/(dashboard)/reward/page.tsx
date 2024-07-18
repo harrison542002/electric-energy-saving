@@ -1,6 +1,7 @@
 import { Reward } from "@/app/(dashboard)/reward/columns";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import DashboardNav from "@/components/dashboard-ui";
 import RewardList from "@/components/pages/reward-list";
+import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import React from "react";
@@ -33,9 +34,12 @@ const Page = async () => {
   });
 
   return (
-    <div>
-      <RewardList rewards={rewards} />
-    </div>
+    <>
+      <DashboardNav session={session} title="Rewards" />
+      <div>
+        <RewardList rewards={rewards} />
+      </div>
+    </>
   );
 };
 

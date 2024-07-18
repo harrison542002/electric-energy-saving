@@ -1,7 +1,9 @@
+import { NextResponse } from "next/server";
+
 export const errorHandler = (error: any) => {
   switch (error.code) {
     case "P2025":
-      return Response.json(
+      return NextResponse.json(
         {
           message: error.message,
         },
@@ -9,7 +11,7 @@ export const errorHandler = (error: any) => {
       );
     default:
       console.log(error.message);
-      return Response.json(
+      return NextResponse.json(
         {
           message: "Something went wrong",
         },

@@ -193,3 +193,92 @@ export const createRanking = async (start_date: Date, end_date: Date) => {
     }
   }
 };
+
+export const claimForSaving = async (user_id: string) => {
+  let current_date = new Date();
+  current_date = new Date(
+    `${current_date.getFullYear()}-${current_date.getMonth() + 1}-01 00:00:00`
+  );
+  const user = await prisma.user.findUnique({
+    where: {
+      identity_number: user_id,
+    },
+    select: {
+      household: {
+        select: {
+          monthlyusage: {
+            where: {
+              date: {
+                gte: current_date,
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!user?.household) {
+    return {
+      error: true,
+      message: "No household found!",
+    };
+  }
+
+  if (user?.household.monthlyusage.length === 0) {
+    return {
+      error: true,
+      message: "No usage bill for current month",
+    };
+  }
+
+  if (
+    user?.household.monthlyusage[0].electric_kWh > 225 ||
+    user?.household.monthlyusage[0].gas_kWh > 958
+  ) {
+    return {
+      error: true,
+      message: "No saving amount tile now",
+    };
+  }
+  //If condition satisfy
+  //Check if there is already saving exist.
+  const reward = await prisma.reward.findFirst({
+    where: {
+      expired_date: {
+        gte: current_date,
+      },
+    },
+  });
+
+  if (reward) {
+    return {
+      error: true,
+      message: "Reward already exists.",
+    };
+  }
+  //If not create a new one and return how much is save.
+  const expired_date = new Date(
+    `${current_date.getFullYear()}-${current_date.getMonth() + 1}-15 00:00:00`
+  );
+  await prisma.reward.create({
+    data: {
+      expired_date,
+      total_saving: calculateTotalSaving(
+        user?.household.monthlyusage[0].electric_kWh +
+          user?.household.monthlyusage[0].gas_kWh
+      ),
+      monthly_usage_id: user?.household.monthlyusage[0].id,
+      status: "PENDING",
+    },
+  });
+  return {
+    error: false,
+    message: "New reward is created.",
+  };
+};
+
+function calculateTotalSaving(n: number) {
+  const totalSaving = Math.floor(79 / Math.log10(1 + n) + 1);
+  return totalSaving;
+}

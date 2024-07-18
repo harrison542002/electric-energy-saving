@@ -1,4 +1,5 @@
 import Heading from "@/components/heading";
+import Link from "next/link";
 import React from "react";
 
 type Props = {
@@ -44,9 +45,12 @@ function MonthlyUsageOverview({ monthly_usage }: Props) {
               ))}
             <tr>
               <td colSpan={4}>
-                <button className="w-full text-center py-2 bg-primary text-white shadow-md hover:bg-primary/85">
+                <Link
+                  href={"/monthly-usage"}
+                  className="block w-full text-center py-2 bg-primary text-white shadow-md hover:bg-primary/85"
+                >
                   See More
-                </button>
+                </Link>
               </td>
             </tr>
           </tbody>
