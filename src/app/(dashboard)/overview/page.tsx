@@ -38,10 +38,10 @@ const Page = async () => {
           kpiResults={[rank, average_saving, previous_month_saving, total_cost]}
         />
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid md:grid-cols-2 gap-2">
           <MonthlyUsageOverview monthly_usage={monthly_usage} />
           <div>
-            <div className="h-[250px]">
+            <div className="h-[250px] mb-5">
               <Heading className="text-center">
                 Time serie of saving bill for current household
               </Heading>

@@ -47,7 +47,7 @@ export const rank_place_columns: ColumnDef<RankPlace>[] = [
     cell: ({ row }) => (
       <>
         {row.original.household.user.length >= 3 ? (
-          <div className="flex items-center gap-2">
+          <div className="md:flex items-center gap-2">
             <div className="relative flex items-center">
               <Image
                 src={"/profiles/" + row.original.household.user[0].profile}

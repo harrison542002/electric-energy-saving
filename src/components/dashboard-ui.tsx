@@ -13,6 +13,16 @@ import { signOut } from "next-auth/react";
 import { Session } from "next-auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { FaGripLines } from "react-icons/fa";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import SideNav from "@/components/side-nav";
 
 const DashboardNav = ({
   session,
@@ -49,7 +59,17 @@ const DashboardNav = ({
   };
   return (
     <div className="bg-slate-50 px-4 py-3 flex items-center justify-between">
-      <h1 className="text-lg font-semibold">{title}</h1>
+      <div className="flex gap-1">
+        <h1 className="text-lg font-semibold">{title}</h1>
+        <Sheet>
+          <SheetTrigger className="border p-1.5 rounded-md">
+            <FaGripLines />
+          </SheetTrigger>
+          <SheetContent side="left">
+            <SideNav />
+          </SheetContent>
+        </Sheet>
+      </div>
       <DropdownMenu>
         <DropdownMenuTrigger className="outline-none">
           <RxAvatar size={25} />

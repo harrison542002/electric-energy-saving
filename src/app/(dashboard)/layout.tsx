@@ -14,9 +14,11 @@ export default async function RootLayout({
     redirect("/login");
   } else {
     return (
-      <div className="grid grid-cols-9 min-h-screen">
-        <div className="col-span-2 h-full">
-          <SideNav />
+      <div className="md:grid grid-cols-9 min-h-screen">
+        <div className="col-span-2 h-full hidden md:block">
+          <div className="bg-slate-50 h-full shadow-md py-2">
+            <SideNav />
+          </div>
         </div>
         <div className="col-span-7">{children}</div>
       </div>

@@ -8,7 +8,7 @@ import {
   AiFillHome,
   AiOutlineDollar,
 } from "react-icons/ai";
-import { MdOutlineLeaderboard , MdLeaderboard } from "react-icons/md";
+import { MdOutlineLeaderboard, MdLeaderboard } from "react-icons/md";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import {
@@ -45,7 +45,7 @@ function SideNav({}: Props) {
     },
   ];
   return (
-    <div className="bg-slate-50 h-full shadow-md py-2">
+    <>
       <div className="flex justify-center">
         <Image
           src="/logo-title.png"
@@ -72,7 +72,7 @@ function SideNav({}: Props) {
           </Link>
         ))}
       </ul>
-    </div>
+    </>
   );
 }
 
