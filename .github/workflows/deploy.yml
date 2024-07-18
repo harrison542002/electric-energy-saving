@@ -2,15 +2,14 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
   workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     if: github.ref == 'refs/heads/master'
@@ -20,9 +19,13 @@ jobs:
         node-version: [20.x]
 
     steps:
-      - uses: actions/checkout@v2
-
-      - run: npm ci
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Install dependencies
+        run: pnpm install
       - run: npm run build
 
       - name: rsync deployments
