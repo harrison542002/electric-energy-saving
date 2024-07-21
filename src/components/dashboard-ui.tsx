@@ -62,7 +62,7 @@ const DashboardNav = ({
       <div className="flex gap-1">
         <h1 className="text-lg font-semibold">{title}</h1>
         <Sheet>
-          <SheetTrigger className="border p-1.5 rounded-md">
+          <SheetTrigger className="border p-1.5 rounded-md block md:hidden">
             <FaGripLines />
           </SheetTrigger>
           <SheetContent side="left">
