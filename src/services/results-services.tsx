@@ -248,8 +248,11 @@ export const claimForSaving = async (user_id: string) => {
       expired_date: {
         gte: current_date,
       },
+      status: "CLAIMED",
     },
   });
+
+  console.log(reward);
 
   if (reward) {
     return {

@@ -40,7 +40,7 @@ const RankOverview = ({ rankReward }: Props) => {
                         alt={rankReward.household.user[0].name}
                         className="rounded-full"
                       />
-                      <p>{rankReward.household.user[0].name}</p>
+                      <p>{rankReward.household.user[0].name}&apos;s house</p>
                     </>
                   ) : rankReward.household.user.length === 2 ? (
                     <>
@@ -53,7 +53,7 @@ const RankOverview = ({ rankReward }: Props) => {
                         alt={rankReward.household.user[0].name}
                         className="rounded-full"
                       />
-                      <p>{rankReward.household.user[0].name}</p>
+                      <p>{rankReward.household.user[0].name}&apos;s house</p>
                     </>
                   ) : (
                     <>
@@ -66,7 +66,7 @@ const RankOverview = ({ rankReward }: Props) => {
                         alt={rankReward.household.user[0].name}
                         className="rounded-full"
                       />
-                      <p>{rankReward.household.user[0].name}</p>
+                      <p>{rankReward.household.user[0].name}&apos;s house</p>
                     </>
                   )
                 ) : (
